@@ -48,7 +48,7 @@ class enemy(Controller):
         return 1./(1.+np.exp(-x))
 
     def control(self, inputs: np.ndarray, controller: np.ndarray) -> List[int]:
-        """_summary_
+        """ Decides which actions the enemy should perform.
 
         Args:
             inputs (np.ndarray): 20 measurements related to the ongoing game, obtained by a Sensor object.
