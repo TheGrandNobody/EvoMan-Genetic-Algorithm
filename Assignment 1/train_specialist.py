@@ -13,10 +13,11 @@ def run(env, config):
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
-    #population.add_reporter(neat.Checkpointer(5))
+    # Saves the state of the simulation every 5 generations (optional)
+    population.add_reporter(neat.Checkpointer(5))
 
-    # Run for up to N generations.
-    return population.run(evaluate, 300)
+    # Run for up to 10 generations.
+    return population.run(evaluate, 10)
 
 def evaluate(genomes, config):
     for genome_id, genome in genomes:
@@ -25,7 +26,7 @@ def evaluate(genomes, config):
         # Save their fitness 
         pass
 
-def process_results(results):
+def process_results(winner, config):
     # Use NEAT's Population object to obtain the statistics you want
     # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
     pass
@@ -51,3 +52,8 @@ if __name__ == "__main__":
     headless = True
     if headless:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
+    
+    # Run simulations to determine a solution
+    winner = run(env, config)
+    # Process results
+    process_results(winner, config)
