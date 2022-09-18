@@ -10,19 +10,23 @@ class specialist(Controller):
         Controller (_type_): The EvoMan controller class
     """
 
-    def control(self, x, inputs: np.ndarray, controller: np.ndarray) -> List[int]:
+    def control(self, x, inputs: np.ndarray, genome: object) -> List[int]:
         """ Decides which actions the Specialist player should perform.
 
         Args:
             inputs (np.ndarray): 20 measurements related to the ongoing game, obtained by a Sensor object.
-            controller (np.ndarray): The weights of the Specialist player's neural network.
+            genome (object): The specific genome playing this particular EvoMan game.
 
         Returns:
             List[int]: A list containing integers to be interpreted as boolean values for each possible action.
         """
-        # INSERT CODE IMPLEMENTING THE NEURAL NETWORK COMPUTATION OF THE OUTPUT USING THE SENSOR INPUTS
+        # This is the part that each genome (individual) will use to decide what actions to take at each step
+        # - Need to run the activation function of the neural network on the inputs to obtain an output
+        # - Need to update the genome's fitness (Can be directly accessed/modified through genome.fitness)
+        
         # CODE SHOULD END WITH A VARIABLE CALLED "output" CONTAINING EACH ACTIVATION VALUE FOR EACH ACTION
-
+        
+        # Leave this line as is
         return [1 if i > 0.5 else 0 for i in output]
 
 class enemy(Controller):
