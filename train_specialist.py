@@ -48,7 +48,7 @@ def process_results(winner, config):
 
 if __name__ == "__main__":
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'neat-specialist')
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, os.path.join(os.path.dirname(__file__), 'neat-specialist'))
 
     # Make the environment headless to run faster
     headless = True
