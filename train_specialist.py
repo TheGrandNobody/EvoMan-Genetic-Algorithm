@@ -2,9 +2,13 @@ import sys, os
 sys.path.insert(0, 'evoman')
 from environment import Environment
 from controllers import specialist
+from ahyperneat.adaptive_linear_net import AdaptiveLinearNet
+from ahyperneat.activations import tanh_activation
 import pickle
 import numpy as np
 import neat
+
+hyperneat = True
 
 # Create the folder for Assignment 1
 if not os.path.exists('A1_specialist'):
@@ -39,11 +43,24 @@ def run(config):
 def evaluate(genomes, config):
     for genome_id, genome in genomes:
         # Create a neural network for each genome
-        rnn = neat.nn.RecurrentNetwork.create(genome, config)
+        if hyperneat:
+            rnn = AdaptiveLinearNet.create(
+                genome,
+                config,
+                input_coords=[[-1.0, 0.0], [0.0, 0.0], [1.0, 0.0], [0.0, -1.0]],
+                output_coords=[[-1.0, 0.0], [0.0, 0.0], [1.0, 0.0]],
+                weight_threshold=0.4,
+                batch_size=1,
+                activation=tanh_activation,
+                output_activation=tanh_activation,
+                device="cpu",
+            )
+        else:
+            rnn = neat.nn.RecurrentNetwork.create(genome, config)
         # Make each genome (individual) play the game
         f,p,e,t = env.play(rnn)
         # Assign a fitness value to a specific genome
-        genome.fitness = 0.85*(100 - e) + 0.15*p - np.log(t)
+        genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
 
 def process_results(winner, config):
     # Use NEAT's Population object to obtain the statistics you want
