@@ -30,10 +30,12 @@ def run(config):
 def evaluate(genomes, config):
     for genome_id, genome in genomes:
         # Create a neural network for each genome
+        rnn = neat.nn.RecurrentNetwork.create(genome, config)
         # Make each genome (individual) play the game
-        f,p,e,t = env.play
-        # Save their fitness 
-        pass
+        f,p,e,t = env.play(rnn)
+        # Assign a fitness value to a specific genome
+        genome.fitness = f
+        # genome.fitness = 0.9*(100 - e) + 0.1*p - np.log(t)
 
 def process_results(winner, config):
     # Use NEAT's Population object to obtain the statistics you want
