@@ -5,6 +5,10 @@ from controllers import specialist
 import numpy as np
 import neat
 
+# Create the folder for Assignment 1
+if not os.path.exists('A1_specialist'):
+    os.makedirs('A1_specialist')
+
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='A1_specialist',
               playermode="ai",
@@ -43,10 +47,6 @@ def process_results(winner, config):
     pass
 
 if __name__ == "__main__":
-    # Create the folder for Assignment 1
-    if not os.path.exists('A1_specialist'):
-        os.makedirs('A1_specialist')
-
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'neat-specialist')
 
