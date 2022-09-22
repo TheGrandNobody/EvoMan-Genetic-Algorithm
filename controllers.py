@@ -22,7 +22,7 @@ class specialist(Controller):
         """
         # Run the 20 sensor inputs through the network to output an array of activation values for each action
         output = network.activate(inputs)
-        print("outputs ", output)
+        # print("outputs ", output)
       
         return [1 if i > 0.5 else 0 for i in output]
 
