@@ -7,7 +7,7 @@ class specialist(Controller):
     """ Implements a controller for a "specialist" player.
 
     Args:
-        Controller (_type_): The EvoMan controller class
+        Controller (class): The EvoMan controller class
     """
 
     def control(self, inputs: np.ndarray, network: object) -> List[int]:
@@ -22,6 +22,7 @@ class specialist(Controller):
         """
         # Run the 20 sensor inputs through the network to output an array of activation values for each action
         output = network.activate(inputs)
+        print("outputs ", output)
       
         return [1 if i > 0.5 else 0 for i in output]
 
