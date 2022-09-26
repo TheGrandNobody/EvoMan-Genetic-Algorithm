@@ -59,6 +59,14 @@ def evaluate(genomes, config):
 def process_results(winner, config):
     # Use NEAT's Population object to obtain the statistics you want
     # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
+    # Create or open a text file called StatsFile.txt
+    file1 = open(r"StatsFile.txt", "a")
+    # Add stats data to file
+    mean = neat.get_fitness_mean()
+    file1.write("Hi!")
+
+    # Close file
+    file1.close()
     pass
 
   
