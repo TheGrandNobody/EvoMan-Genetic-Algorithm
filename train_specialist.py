@@ -64,8 +64,6 @@ def process_results(winner, config):
 
     # Close file
     file1.close()
-    pass
-
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
