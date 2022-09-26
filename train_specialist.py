@@ -59,7 +59,7 @@ def process_results(winner, config):
     # Create or open a text file called StatsFile.txt
     file1 = open(r"StatsFile.txt", "a")
     # Add stats data to file
-    mean = neat.get_fitness_mean()
+    mean = stats.get_fitness_mean()
     file1.write("Hi!")
 
     # Close file
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # Run simulations to determine a solution
     winner, stats = run(config)
     # Process results
-    process_results(winner, config)
+    process_results(winner, stats)
     with open(('neat' if HYPERNEAT else 'esneat') + '-winner.pkl', "wb") as f:
         pickle.dump(winner, f)
     print(winner)
