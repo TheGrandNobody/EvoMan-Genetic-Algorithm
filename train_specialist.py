@@ -10,8 +10,6 @@ from substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
-if HYPERNEAT:
-    sub = Substrate(20, 5, hidden_coordinates)
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
