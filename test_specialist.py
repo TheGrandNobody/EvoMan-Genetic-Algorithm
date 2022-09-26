@@ -9,8 +9,6 @@ from substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
-if HYPERNEAT:
-    sub = Substrate(20, 5)
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='A1_specialist',
@@ -29,6 +27,7 @@ if __name__ == "__main__":
         genome = unpickler.load()
     # Create either an RNN or a CPPN
     if HYPERNEAT:
+        sub = Substrate(20, 5)
         cppn = neat.nn.FeedForwardNetwork.create(genome, config)
         network = ESNetwork(sub, cppn)
         rnn = network.create_phenotype_network()
