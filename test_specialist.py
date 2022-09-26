@@ -35,5 +35,3 @@ if __name__ == "__main__":
         rnn = neat.nn.RecurrentNetwork.create(genome, config)
     # Make the genome (individual) play the game
     print(env.play(rnn))
-    
-    
