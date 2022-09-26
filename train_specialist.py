@@ -38,6 +38,8 @@ def run(config):
     return population.run(evaluate, 10), stats
 
 def evaluate(genomes, config):
+    if HYPERNEAT:
+        sub = Substrate(20, 5)
     for genome_id, genome in genomes:
         # Create either an RNN or a CPPN for each genome
         if HYPERNEAT:
