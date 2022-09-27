@@ -68,7 +68,8 @@ def process_results(winner, stats):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
         file1.write(f'{stdev[i]}, \n')
-
+   
+    #
     stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
     # Close file
     file1.close()
