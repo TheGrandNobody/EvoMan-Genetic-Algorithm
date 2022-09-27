@@ -72,9 +72,6 @@ def process_results(winner, stats):
     stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
     # Close file
     file1.close()
-    pass
-
-  
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
