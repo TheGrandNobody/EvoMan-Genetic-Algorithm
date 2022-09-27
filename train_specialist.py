@@ -35,7 +35,7 @@ def run(config):
     population.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 10 generations.
-    return population.run(evaluate, 2), stats
+    return population.run(evaluate, 10), stats
 
 def evaluate(genomes, config):
     if HYPERNEAT:
@@ -64,7 +64,7 @@ def process_results(winner, stats):
     file1.write('\n New Run \n')
     file1.write('no. , mean, stdev \n')
     
-    for i in  range(0,2):
+    for i in  range(0,10):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
         file1.write(f'{stdev[i]}, \n')
