@@ -35,7 +35,7 @@ def run(config):
     population.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 10 generations.
-    return population.run(evaluate, 10), stats
+    return population.run(evaluate, 2), stats
 
 def evaluate(genomes, config):
     if HYPERNEAT:
@@ -53,15 +53,23 @@ def evaluate(genomes, config):
         # Assign a fitness value to a specific genome
         genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
 
-def process_results(winner, config):
+def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
     # Create or open a text file called StatsFile.txt
-    file1 = open(r"StatsFile.txt", "a")
+    file1 = open(r"StatsFile.csv", "a")
     # Add stats data to file
     mean = stats.get_fitness_mean()
-    file1.write("Hi!")
+    stdev = stats.get_fitness_stdev()
+    file1.write('\n New Run \n')
+    file1.write('no. , mean, stdev \n')
+    
+    for i in  range(0,2):
+        file1.write(str(i) + ',')
+        file1.write(f'{mean[i]}, ')
+        file1.write(f'{stdev[i]}, \n')
 
+    stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
     # Close file
     file1.close()
     pass
