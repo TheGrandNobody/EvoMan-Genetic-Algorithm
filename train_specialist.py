@@ -35,11 +35,11 @@ def run(config):
     population.add_reporter(neat.Checkpointer(10))
 
     # Run for up to 10 generations.
-    return population.run(evaluate, 20), stats
+    return population.run(evaluate, 10), stats
 
 def evaluate(genomes, config):
     if HYPERNEAT:
-        sub = Substrate(20, 5)
+        sub = Substrate(20, 5, 2, 10)
     for genome_id, genome in genomes:
         # Create either an RNN or a CPPN for each genome
         if HYPERNEAT:
