@@ -68,20 +68,20 @@ def process_results(winner, stats):
     mean = stats.get_fitness_mean()
     
     # Clean up csv file with every run
-    file1.write('\n New Run \n')
-    file1.write('no. , mean, best \n')
+    file1.write('New Run,')
+
     # Loop through mean and stdev lists to add values to file
     for i in  range(0,10):
-        file1.write(str(i) + ',')
+        file1.write('gen ' + str(i) + ', ')
         file1.write(f'{mean[i]}, ')
-        file1.write(f'{best_genomes[i]} \n')
+        file1.write(f'{best_genomes[i]}, ')
    
     # Check inbuilt fitness mean and max saver from NEAT, saves to separate SaveGenomeFitness.csv
     # TODO rewrite NEAT's function so that it does not rewrite file on each run, and to clean up data
     stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
     
     # Close file
-    #file1.close()
+    file1.close()
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
