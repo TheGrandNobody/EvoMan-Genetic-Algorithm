@@ -8,7 +8,7 @@ from hyperneat import query_cppn
 from visualize import draw_es
 
 params = {"initial_depth": 0,
-            "max_depth": 1,
+            "max_depth": 2,
             "variance_threshold": 0.03,
             "band_threshold": 0.3,
             "iteration_level": 1,
