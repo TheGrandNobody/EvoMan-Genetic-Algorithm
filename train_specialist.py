@@ -62,7 +62,6 @@ def evaluate(genomes, config):
 
 def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
-    # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
     file1 = open(r"%sStatsFile.csv" % (NAME), "a")
    
@@ -77,9 +76,9 @@ def process_results(winner, stats):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
         file1.write(f'{best_genomes[i]}, ')
+    
+    file1.write('\n')
    
-    # Check inbuilt fitness mean and max saver from NEAT, saves to separate SaveGenomeFitness.csv
-    # TODO rewrite NEAT's function so that it does not rewrite file on each run, and to clean up data
     # Close file
     file1.close()
 
