@@ -19,7 +19,7 @@ class Substrate(object):
             hidden_nodes (int, optional): _description_. Defaults to 10.
             res (float, optional): _description_. Defaults to 10.0.
         """
-        self.input_coordinates = [(float(i), -1.0) for i in range(-num_inputs//2, num_inputs//2 + (0 if num_inputs % 2 else 1))]
-        self.output_coordinates = [(float(i), 1.0) for i in range(-num_outputs//2, num_outputs//2 + (0 if num_outputs % 2 else 1))]
+        self.input_coordinates = [(float(i), -1.0) for i in range(-num_inputs//2, num_inputs//2 + (0 if not num_inputs % 2 else 1))]
+        self.output_coordinates = [(float(i), 1.0) for i in range(-num_outputs//2, num_outputs//2 + (0 if not num_outputs % 2 else 1))]
         self.hidden_coordinates = [[(float(i), 0.0) for i in range(-hidden_nodes//2, hidden_nodes//2)] for _ in range(n_hidden_nodes)]
         self.res = res

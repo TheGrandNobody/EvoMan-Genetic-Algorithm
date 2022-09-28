@@ -32,14 +32,14 @@ def run(config):
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
     # Saves the state of the simulation every 5 generations (optional)
-    population.add_reporter(neat.Checkpointer(5))
+    population.add_reporter(neat.Checkpointer(10))
 
-    # Run for up to 10 generations
+    # Run for up to 10 generations.
     return population.run(evaluate, 10), stats
 
 def evaluate(genomes, config):
     if HYPERNEAT:
-        sub = Substrate(20, 5)
+        sub = Substrate(20, 5, 2, 10)
     for genome_id, genome in genomes:
         # Create either an RNN or a CPPN for each genome
         if HYPERNEAT:
@@ -90,6 +90,6 @@ if __name__ == "__main__":
     winner, stats = run(config)
     # Process results
     process_results(winner, stats)
-    with open(('neat' if HYPERNEAT else 'esneat') + '-winner.pkl', "wb") as f:
+    with open(('esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "wb") as f:
         pickle.dump(winner, f)
     print(winner)
