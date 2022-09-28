@@ -37,7 +37,7 @@ def run(config):
     population.add_reporter(neat.Checkpointer(10))
 
     # Run for up to 10 generations.
-    return population.run(evaluate, 10), stats
+    return population.run(evaluate, 50), stats
 
 def evaluate(genomes, config):
     best = 0
