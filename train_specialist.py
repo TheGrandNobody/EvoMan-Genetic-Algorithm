@@ -8,6 +8,12 @@ import neat
 from es_hyperneat import ESNetwork
 from substrate import Substrate
 
+enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
+# Name of the enemy
+NAME = "WoodMan"
+# Number of generations to run the simulation
+GENS = 1
+# Holds the best genomes for each generation
 best_genomes = []
 
 # Whether we are training using HyperNeat or not
@@ -19,7 +25,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='A1_specialist',
               playermode="ai",
-              enemies=[7],
+              enemies=[enemies[NAME]],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -28,16 +34,12 @@ env = Environment(experiment_name='A1_specialist',
 def run(config):
     # Create the population, which is the top-level object for a NEAT run.
     population = neat.Population(config)
-
     # Add a stdout reporter to show progress in the terminal.
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
-    # Saves the state of the simulation every 5 generations (optional)
-    population.add_reporter(neat.Checkpointer(10))
-
     # Run for up to 10 generations.
-    return population.run(evaluate, 50), stats
+    return population.run(evaluate, GENS), stats
 
 def evaluate(genomes, config):
     best = 0
@@ -62,7 +64,7 @@ def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    file1 = open(r"StatsFile.csv", "a")
+    file1 = open(r"%sStatsFile.csv" % (NAME), "a")
    
     # Get list of means and stdev 
     mean = stats.get_fitness_mean()
@@ -71,17 +73,15 @@ def process_results(winner, stats):
     file1.write('\n New Run \n')
     file1.write('no. , mean, best \n')
     # Loop through mean and stdev lists to add values to file
-    for i in  range(0,10):
+    for i in  range(GENS):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
         file1.write(f'{best_genomes[i]} \n')
    
     # Check inbuilt fitness mean and max saver from NEAT, saves to separate SaveGenomeFitness.csv
     # TODO rewrite NEAT's function so that it does not rewrite file on each run, and to clean up data
-    stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
-    
     # Close file
-    #file1.close()
+    file1.close()
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
@@ -89,10 +89,11 @@ if __name__ == "__main__":
         os.makedirs('A1_specialist')
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
-    # Run simulations to determine a solution
-    winner, stats = run(config)
-    # Process results
-    process_results(winner, stats)
-    with open(('esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "wb") as f:
-        pickle.dump(winner, f)
-    print(winner)
+
+    for i in range(5):
+        # Run simulations to determine a solution
+        winner, stats = run(config)
+        # Process results
+        process_results(winner, stats)
+        with open((NAME + str(i) + 'esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "wb") as f:
+            pickle.dump(winner, f)
