@@ -22,7 +22,7 @@ env = Environment(experiment_name='A1_specialist',
 if __name__ == "__main__":
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
-    with open(('neat' if HYPERNEAT else 'esneat') + '-winner.pkl', "rb") as f:
+    with open(('esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "rb") as f:
         unpickler = pickle.Unpickler(f)
         genome = unpickler.load()
     # Create either an RNN or a CPPN
