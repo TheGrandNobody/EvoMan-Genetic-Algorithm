@@ -8,6 +8,8 @@ import neat
 from es_hyperneat import ESNetwork
 from substrate import Substrate
 
+best_genomes = []
+
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
 
@@ -38,6 +40,7 @@ def run(config):
     return population.run(evaluate, 10), stats
 
 def evaluate(genomes, config):
+    best = 0
     if HYPERNEAT:
         sub = Substrate(20, 5)
     for genome_id, genome in genomes:
@@ -52,6 +55,8 @@ def evaluate(genomes, config):
         f,p,e,t = env.play(rnn)
         # Assign a fitness value to a specific genome
         genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
+        best = genome.fitness if genome.fitness > best else best
+    best_genomes.append(best)
 
 def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
@@ -60,25 +65,23 @@ def process_results(winner, stats):
     file1 = open(r"StatsFile.csv", "a")
    
     # Get list of means and stdev 
-    #TODO remove stdev
     mean = stats.get_fitness_mean()
-    stdev = stats.get_fitness_stdev()
     
     # Clean up csv file with every run
     file1.write('\n New Run \n')
-    file1.write('no. , mean, stdev \n')
+    file1.write('no. , mean, best \n')
     # Loop through mean and stdev lists to add values to file
     for i in  range(0,10):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
-        file1.write(f'{stdev[i]}, \n')
+        file1.write(f'{best_genomes[i]} \n')
    
     # Check inbuilt fitness mean and max saver from NEAT, saves to separate SaveGenomeFitness.csv
     # TODO rewrite NEAT's function so that it does not rewrite file on each run, and to clean up data
     stats.save_genome_fitness(delimiter=',', filename='SaveGenomeFitness.csv', with_cross_validation=False)
     
     # Close file
-    file1.close()
+    #file1.close()
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
