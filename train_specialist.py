@@ -12,7 +12,7 @@ enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
 # Name of the enemy
 NAME = "WoodMan"
 # Number of generations to run the simulation
-GENS = 1
+GENS = 25
 # Holds the best genomes for each generation
 best_genomes = []
 
