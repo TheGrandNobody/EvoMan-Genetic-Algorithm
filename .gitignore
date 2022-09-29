@@ -2,11 +2,13 @@ __pycache__
 demo_controller.cpython-39.pyc
 .ipynb_checkpoints
 controller_specialist_demo
-test
 .DS_Store
 .vscode
 multi_demo
 dummy_demo
 controller_generalist_demo
 co_demo
-A1_specialist
+winners
+stats
+logs
+test/evoman_logs.txt
