@@ -7,12 +7,15 @@ import numpy as np
 import neat
 from es_hyperneat import ESNetwork
 from substrate import Substrate
+import concurrent
 
 enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
 # Name of the enemy
-NAME = "WoodMan"
+NAME = "BubbleMan"
 # Number of generations to run the simulation
 GENS = 25
+# Number of iterations to run each simulation
+ITERATIONS = 5
 # Holds the best genomes for each generation
 best_genomes = []
 
@@ -64,7 +67,7 @@ def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Check out opitmization_specialist_demo.py to see what part of the results-writing code you can take
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    file1 = open(r"%sStatsFile.csv" % (NAME), "a")
+    file1 = open(r"stats/%sStatsFile.csv" % (NAME), "a")
    
     # Get list of means and stdev 
     mean = stats.get_fitness_mean()
@@ -83,17 +86,20 @@ def process_results(winner, stats):
     # Close file
     file1.close()
 
+def main(i) -> None:
+    # Run simulations to determine a solution
+    winner, stats = run(config)
+    # Process results
+    process_results(winner, stats)
+    with open("winners/%s%d%s%s" % (NAME, i,('esneat' if HYPERNEAT else 'neat'), '-winner.pkl'), "wb") as f:
+        pickle.dump(winner, f)
+
 if __name__ == "__main__":
     # Create the folder for Assignment 1
     if not os.path.exists('A1_specialist'):
         os.makedirs('A1_specialist')
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        executor.map(main, [i for i in range(ITERATIONS)])
 
-    for i in range(5):
-        # Run simulations to determine a solution
-        winner, stats = run(config)
-        # Process results
-        process_results(winner, stats)
-        with open((NAME + str(i) + 'esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "wb") as f:
-            pickle.dump(winner, f)
