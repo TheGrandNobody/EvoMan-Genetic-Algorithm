@@ -1,4 +1,4 @@
-import sys, os
+import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
 from controllers import specialist
