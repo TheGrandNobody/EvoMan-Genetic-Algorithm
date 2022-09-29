@@ -9,16 +9,16 @@ from es_hyperneat import ESNetwork
 from substrate import Substrate
 from concurrent.futures import ProcessPoolExecutor
 
+# Dictionary mapping names to their corresponding ids
 enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
+# Holds the best genomes for each generation
+best_genomes = []
 # Name of the enemy
 NAME = "WoodMan"
 # Number of generations to run the simulation
 GENS = 25
 # Number of iterations to run each simulation
 ITERATIONS = 5
-# Holds the best genomes for each generation
-best_genomes = []
-
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
 
@@ -26,7 +26,7 @@ HYPERNEAT = len(sys.argv) > 1
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
-env = Environment(experiment_name='A1_specialist',
+env = Environment(experiment_name='logs',
               playermode="ai",
               enemies=[enemies[NAME]],
               player_controller=specialist(),
@@ -95,8 +95,8 @@ def main(params) -> None:
 
 if __name__ == "__main__":
     # Create the folder for Assignment 1
-    if not os.path.exists('A1_specialist'):
-        os.makedirs('A1_specialist')
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
     with ProcessPoolExecutor() as executor:
