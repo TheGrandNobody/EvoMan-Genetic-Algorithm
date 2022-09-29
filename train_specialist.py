@@ -66,7 +66,7 @@ def evaluate(genomes, config):
 def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    file1 = open(r"stats/%sStatsFile.csv" % (NAME), "a")
+    file1 = open(r"stats/%s%sStatsFile.csv" % (NAME, "esneat" if HYPERNEAT else "neat"), "a")
    
     # Get list of means and stdev 
     mean = stats.get_fitness_mean()
