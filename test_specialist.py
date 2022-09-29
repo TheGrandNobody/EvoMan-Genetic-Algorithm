@@ -1,4 +1,4 @@
-import sys, os
+import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
 from controllers import specialist
@@ -11,7 +11,7 @@ from substrate import Substrate
 HYPERNEAT = len(sys.argv) > 1
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
-env = Environment(experiment_name='A1_specialist',
+env = Environment(experiment_name='logs',
               playermode="ai",
               enemies=[7],
               player_controller=specialist(),
