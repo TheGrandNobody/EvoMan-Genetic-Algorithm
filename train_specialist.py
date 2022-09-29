@@ -7,11 +7,11 @@ import numpy as np
 import neat
 from es_hyperneat import ESNetwork
 from substrate import Substrate
-import concurrent
+from concurrent.futures import ProcessPoolExecutor
 
 enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
 # Name of the enemy
-NAME = "BubbleMan"
+NAME = "WoodMan"
 # Number of generations to run the simulation
 GENS = 25
 # Number of iterations to run each simulation
@@ -85,12 +85,12 @@ def process_results(winner, stats):
     # Close file
     file1.close()
 
-def main(i) -> None:
+def main(params) -> None:
     # Run simulations to determine a solution
-    winner, stats = run(config)
+    winner, stats = run(params[0])
     # Process results
     process_results(winner, stats)
-    with open("winners/%s%d%s%s" % (NAME, i,('esneat' if HYPERNEAT else 'neat'), '-winner.pkl'), "wb") as f:
+    with open("winners/%s%d%s%s" % (NAME, params[1],('esneat' if HYPERNEAT else 'neat'), '-winner.pkl'), "wb") as f:
         pickle.dump(winner, f)
 
 if __name__ == "__main__":
@@ -99,6 +99,6 @@ if __name__ == "__main__":
         os.makedirs('A1_specialist')
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        executor.map(main, [i for i in range(ITERATIONS)])
+    with ProcessPoolExecutor() as executor:
+        executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
