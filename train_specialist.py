@@ -18,7 +18,7 @@ NAME = "CrashMan"
 # Number of generations to run the simulation
 GENS = 15
 # Number of iterations to run each simulation
-ITERATIONS = 5
+ITERATIONS = 2
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
 
