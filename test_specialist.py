@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
     # TODO change file name & potentially loop through pkl files?
-    with open('winners/Crashman0neat-winner.pkl', "rb") as f:
+    with open('winners/Crashman5neat-winner.pkl', "rb") as f:
         unpickler = pickle.Unpickler(f)
         genome = unpickler.load()
     # Create either an RNN or a CPPN
@@ -45,10 +45,10 @@ if __name__ == "__main__":
     #statsfile.write() for formatting later
     # Make the genome (individual) play the game 5 times
     for i in range(0,5):
-        print(env.play(rnn))
+        a = env.play(rnn)
+        print(a)
         # Write fitness values to stats file
-        fitness = genome.fitness
-        statsfile.write(str(fitness) + ", ")
+        statsfile.write(str(a[0]) + ", ")
     statsfile.write('\n')
 
 statsfile.close()
