@@ -16,7 +16,7 @@ best_genomes = []
 # Name of the enemy
 NAME = "WoodMan"
 # Number of generations to run the simulation
-GENS = 25
+GENS = 15
 # Number of iterations to run each simulation
 ITERATIONS = 5
 # Whether we are training using HyperNeat or not
