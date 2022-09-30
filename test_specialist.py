@@ -13,16 +13,24 @@ HYPERNEAT = len(sys.argv) > 1
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[7],
+              enemies=[6],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
               level=2)
 
+# Open boxplot stats file 
+statsfile = open(r"Boxplot.csv", "a")
+# Add enemy number & neat/esHyperneat
+statsfile.write(str(env.enemies[0]) + ', ')
+statsfile.write('esneat' if HYPERNEAT else 'neat'+ ', ')
+
 if __name__ == "__main__":
+
     # Initialize the NEAT config 
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
-    with open(('esneat' if HYPERNEAT else 'neat') + '-winner.pkl', "rb") as f:
+    # TODO change file name & potentially loop through pkl files?
+    with open('winners/Crashman0neat-winner.pkl', "rb") as f:
         unpickler = pickle.Unpickler(f)
         genome = unpickler.load()
     # Create either an RNN or a CPPN
@@ -33,5 +41,14 @@ if __name__ == "__main__":
         rnn = network.create_phenotype_network()
     else:
         rnn = neat.nn.RecurrentNetwork.create(genome, config)
-    # Make the genome (individual) play the game
-    print(env.play(rnn))
+    
+    #statsfile.write() for formatting later
+    # Make the genome (individual) play the game 5 times
+    for i in range(0,5):
+        print(env.play(rnn))
+        # Write fitness values to stats file
+        fitness = genome.fitness
+        statsfile.write(str(fitness) + ", ")
+    statsfile.write('\n')
+
+statsfile.close()
