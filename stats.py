@@ -5,15 +5,14 @@ import pandas as pd
 
 #Start making the line plot over the different genarations 
 #plt.style.use('_mpl-gallery')
-name = ["BubbleManneatStatsFile.csv", "BubbleManesneatStatsFile.csv", "CrashManneatStatsFile.csv", "CrashManesneatStatsFile.csv", "WoodManneatStatsFile.csv", "WoodManesneatStatsFile.csv"]
 
-
-BubbleManneat_Stats = pd.read_csv("BubbleManneatStatsFile.csv")
-BubbleManneat_Stats = BubbleManneat_Stats.str.split(',', expand=True)
+#BubbleManneat_Stats = pd.read_csv("stats/BubbleManneatStatsFile.csv")
+file1 = open("stats/BubbleManneatStatsFile.csv", "r")
+BubbleManneat_Stats = file1.str.split(pat = ',', expand=False)
 
 BubbleManneat_Stats_results = []
 BubbleManneat_Stats_results = [range(1,15)]
-
+# list = [[]]
 
 for j in range (2,46,3):
     mean_mean_genaration = BubbleManneat_Stats[j].mean()
