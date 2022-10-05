@@ -21,7 +21,7 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write( + ', ')
+statsfile.write("neat" if NEAT else "simple" + ', ')
 
 if __name__ == "__main__":
 
