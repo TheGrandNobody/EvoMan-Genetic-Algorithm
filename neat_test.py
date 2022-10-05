@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
-from controllers import simple, specialist, enemy
+from controllers import simple, specialist
 import pickle
 import neat
 
@@ -14,6 +14,7 @@ env = Environment(experiment_name='logs',
               enemies=[1, 2, 3, 4, 5, 6, 7, 8],
               player_controller=specialist() if NEAT else simple(),
               speed="fastest",
+              multiplemode="no"
               enemymode="static",
               level=2)
 

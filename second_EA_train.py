@@ -2,13 +2,12 @@
 import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
-from demo_controller import player_controller
+from controllers import simple
 
 # imports other libs
 import time
 import numpy as np
-from math import fabs,sqrt
-import glob, os
+import os
 
 
 experiment_name = 'train/train_1'
@@ -22,15 +21,12 @@ if headless:
 
 n_hidden_neurons = 10
 
-
-
-
 # initializes simulation in multi evolution mode, for multiple static enemies.
 env = Environment(experiment_name=experiment_name,
                   enemies=[7,8],
                   multiplemode="yes",
                   playermode="ai",
-                  player_controller=player_controller(n_hidden_neurons),
+                  player_controller=simple(n_hidden_neurons),
                   enemymode="static",
                   level=2,
                   speed="fastest")
@@ -108,14 +104,7 @@ def survivor_selection(pop,fit_pop,offspring,fit_offspring):
     fitness_new_pop = (fitness_new_pop[sorted_index])[:npop]
     return new_pop,fitness_new_pop
 
-
-
-
-
-
 if __name__ == "__main__":
-
-
     # # loads file with the best solution for testing
     # if run_mode =='test':
     #     bsol = np.loadtxt(experiment_name+'/best.txt')
@@ -126,8 +115,6 @@ if __name__ == "__main__":
 
     ITERATIONS = 10
     for i in range(ITERATIONS):
-
-
         experiment_name = 'train/train_' + str(i + 1)
         if not os.path.exists(experiment_name):
             os.makedirs(experiment_name)
@@ -210,13 +197,13 @@ if __name__ == "__main__":
 
 
             # saves results
-            file_aux  = open(experiment_name+'/results.txt','a')
+            file_aux = open(experiment_name+'/results.txt','a')
             print( '\n GENERATION '+str(i)+' '+str(round(fit_pop[best],6))+' '+str(round(mean,6))+' '+str(round(std,6)))
             file_aux.write('\n'+str(i)+' '+str(round(fit_pop[best],6))+' '+str(round(mean,6))+' '+str(round(std,6))   )
             file_aux.close()
 
             # saves generation number
-            file_aux  = open(experiment_name+'/gen.txt','w')
+            file_aux = open(experiment_name+'/gen.txt','w')
             file_aux.write(str(i))
             file_aux.close()
 

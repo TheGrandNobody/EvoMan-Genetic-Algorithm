@@ -25,6 +25,7 @@ env = Environment(experiment_name='logs',
               playermode="ai",
               enemies=[7,8],
               player_controller=specialist(),
+              multiplemode="yes"
               speed="fastest",
               enemymode="static",
               level=2)

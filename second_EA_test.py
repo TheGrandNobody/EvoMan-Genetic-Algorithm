@@ -2,14 +2,13 @@
 import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
-from demo_controller import player_controller
+from controllers import simple
 import pandas as pd
 
 # imports other libs
 import time
 import numpy as np
-from math import fabs,sqrt
-import glob, os
+import os
 
 
 num_all_enemies=2
@@ -32,7 +31,7 @@ env = Environment(experiment_name=experiment_name,
                   enemies=[1],
                   multiplemode="no",
                   playermode="ai",
-                  player_controller=player_controller(n_hidden_neurons),
+                  player_controller=simple(n_hidden_neurons),
                   enemymode="static",
                   level=2,
                   speed="fastest")
