@@ -15,10 +15,11 @@ enemies = {"WoodMan" : 3, "CrashMan" : 6, "BubbleMan" : 7}
 best_genomes = []
 # Name of the enemy
 NAME = "CrashMan"
+TEST = "test_generalist_9"
 # Number of generations to run the simulation
-GENS = 15
+GENS = 10
 # Number of iterations to run each simulation
-ITERATIONS = 2
+ITERATIONS = 3
 # Whether we are training using HyperNeat or not
 HYPERNEAT = len(sys.argv) > 1
 
@@ -28,7 +29,8 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[enemies[NAME]],
+              multiplemode="yes",
+              enemies=[5,6,7],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -89,8 +91,8 @@ def main(params) -> None:
     # Run simulations to determine a solution
     winner, stats = run(params[0])
     # Process results
-    process_results(winner, stats)
-    with open("winners/%s%d%s%s" % (NAME, params[1],('esneat' if HYPERNEAT else 'neat'), '-winner.pkl'), "wb") as f:
+    # process_results(winner, stats)
+    with open("winners/%s%d%s%s" % (TEST, params[1],('esneat' if HYPERNEAT else 'neat'), '-winner.pkl'), "wb") as f:
         pickle.dump(winner, f)
 
 if __name__ == "__main__":
