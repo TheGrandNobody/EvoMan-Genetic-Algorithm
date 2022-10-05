@@ -74,7 +74,7 @@ def process_results(winner, stats):
     # Clean up csv file with every run
     file1.write('New Run,')
 
-    # Loop through mean and stdev lists to add values to file
+    # Loop through mean lists to add values to file
     for i in  range(GENS):
         file1.write(str(i) + ',')
         file1.write(f'{mean[i]}, ')
