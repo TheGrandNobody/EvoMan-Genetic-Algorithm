@@ -11,8 +11,11 @@ from concurrent.futures import ProcessPoolExecutor
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
+# Name of the enemy
+NAME = "CrashMan"
+TEST = "test_generalist_9"
 # Number of generations to run the simulation
-GENS = 15
+GENS = 10
 # Number of iterations to run each simulation
 ITERATIONS = 1
 
@@ -22,8 +25,10 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[7,8],
+              multiplemode="yes",
+              enemies=[5,6,7],
               player_controller=specialist(),
+              multiplemode="yes"
               speed="fastest",
               enemymode="static",
               level=2)
@@ -76,8 +81,8 @@ def main(params) -> None:
     # Run simulations to determine a solution
     winner, stats = run(params[0])
     # Process results
-    process_results(winner, stats)
-    with open("winners/%s%d%s%s" % (f"[{env.enemies}]",params[1],('neat' if NEAT else 'simple'), '-winner.pkl'), "wb") as f:
+    # process_results(winner, stats)
+    with open("winners/%s%d%s%s" % (TEST, params[1], 'neat', '-winner.pkl'), "wb") as f:
         pickle.dump(winner, f)
 
 if __name__ == "__main__":
@@ -85,7 +90,7 @@ if __name__ == "__main__":
     if not os.path.exists('logs'):
         os.makedirs('logs')
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-specialist.cfg')
     with ProcessPoolExecutor() as executor:
         executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
