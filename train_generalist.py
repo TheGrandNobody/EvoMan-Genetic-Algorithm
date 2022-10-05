@@ -9,7 +9,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 
 # Determines whether NEAT or the simple NN is being used
-NEAT = len(sys.argv == 0)
+NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Number of generations to run the simulation
@@ -42,8 +42,9 @@ def run(config):
 def evaluate(genomes, config):
     best = 0
     for genome_id, genome in genomes:
-        # Create either an RNN or a CPPN for each genome
-        rnn = neat.nn.RecurrentNetwork.create(genome, config)
+        # Create either an RNN or a simple NN for each genome
+        if NEAT:
+            rnn = neat.nn.RecurrentNetwork.create(genome, config)
         # Make each genome (individual) play the game
         f,p,e,t = env.play(rnn)
         # Assign a fitness value to a specific genome
@@ -61,7 +62,7 @@ def process_results(winner, stats):
         # Clean up csv file with every run
         file.write('New Run,')
 
-        # Loop through mean and stdev lists to add values to file
+        # Loop through mean lists to add values to file
         for i in range(GENS):
             file.write(str(i) + ',')
             file.write(f'{mean[i]}, ')

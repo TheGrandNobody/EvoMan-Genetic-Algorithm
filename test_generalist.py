@@ -6,12 +6,12 @@ import pickle
 import neat
 
 # Whether we are training using HyperNeat or not
-HYPERNEAT = len(sys.argv) > 1
+NEAT = len(sys.argv) == 1
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[6],
+              enemies=[7,8],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -32,12 +32,7 @@ if __name__ == "__main__":
             unpickler = pickle.Unpickler(f)
             genome = unpickler.load()
         # Create either an RNN or a CPPN
-        if HYPERNEAT:
-            sub = Substrate(20, 5, 2, 10 )
-            cppn = neat.nn.FeedForwardNetwork.create(genome, config)
-            network = ESNetwork(sub, cppn)
-            rnn = network.create_phenotype_network()
-        else:
+        if NEAT:
             rnn = neat.nn.RecurrentNetwork.create(genome, config)
     
         #statsfile.write() for formatting later
