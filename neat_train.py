@@ -88,7 +88,7 @@ if __name__ == "__main__":
     if not os.path.exists('logs'):
         os.makedirs('logs')
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-specialist.cfg')
     with ProcessPoolExecutor() as executor:
         executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
