@@ -15,7 +15,7 @@ env = Environment(experiment_name='logs',
               playermode="ai",
               multiplemode="yes",
               enemies=[1,2,3,4,5,6,7,8],
-              player_controller=specialist(),
+              player_controller=specialist() if NEAT else simple(),
               speed="fastest",
               enemymode="static",
               level=2)
