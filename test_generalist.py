@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, 'evoman')
 from environment import Environment
-from controllers import specialist
+from controllers import specialist, enemy
 import pickle
 import neat
 
@@ -11,8 +11,8 @@ NEAT = len(sys.argv) == 1
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[7,8],
-              player_controller=specialist(),
+              enemies=[1, 2, 3, 4, 5, 6, 7, 8],
+              player_controller=specialist() if NEAT else enemy(),
               speed="fastest",
               enemymode="static",
               level=2)
