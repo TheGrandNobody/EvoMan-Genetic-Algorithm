@@ -7,7 +7,6 @@ import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
 
-
 # Determines whether NEAT or the simple NN is being used
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
