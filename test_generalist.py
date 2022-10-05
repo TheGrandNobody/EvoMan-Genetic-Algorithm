@@ -21,7 +21,7 @@ env = Environment(experiment_name='logs',
 statsfile = open(r"Boxplot.csv", "a")
 # Add enemy number & neat/esHyperneat
 statsfile.write(str(env.enemies[0]) + ', ')
-statsfile.write('esneat, ' if HYPERNEAT else 'neat, ')
+statsfile.write('neat, ' if NEAT else 'simple, ')
 
 if __name__ == "__main__":
 
