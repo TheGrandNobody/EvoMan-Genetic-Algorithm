@@ -6,7 +6,7 @@ import pickle
 import neat
 
 # Whether we are training using HyperNeat or not
-HYPERNEAT = len(sys.argv) > 1
+NEAT = len(sys.argv) == 1
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
@@ -21,7 +21,7 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write('Test7' + ', ')
+statsfile.write( + ', ')
 
 if __name__ == "__main__":
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         a = env.play(rnn)
         print(a)
         # Write fitness value to stats file
-        statsfile.write(str(a[0]) + ", ")
+        statsfile.write(str(a[2] - a[1]) + ", ")
     
 statsfile.write('\n')
 statsfile.close()
