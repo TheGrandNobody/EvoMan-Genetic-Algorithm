@@ -9,7 +9,7 @@ def boxplot(data_file):
     all_data = []
     all_groups = []
     # read csv file
-    with open('Boxplot.csv', newline='') as csvfile:
+    with open(data_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
             all_groups.append(row[0])
@@ -37,4 +37,4 @@ def boxplot(data_file):
     return 
 
 if __name__ == "__main__":
-    boxplot('Boxplot.csv')
+    boxplot('test.csv')
