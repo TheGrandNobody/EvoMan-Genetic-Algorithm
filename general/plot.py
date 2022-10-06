@@ -73,8 +73,8 @@ if __name__ == "__main__":
 
     for i in paths:
         name = (i.split("/"))[1]
-        if "simple" in name:
-            names.append("Regular")
+        if "esneat" in name:
+            names.append("ES-HyperNEAT")
         else:
             names.append("NEAT")
 
