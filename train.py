@@ -6,6 +6,9 @@ import pickle
 import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
+from extra.substrate import Substrate
+from extra.es_hyperneat import ESNetwork
+from extra.hyperneat import create_phenotype_network
 
 # Determines whether NEAT or the simple NN is being used
 NEAT = len(sys.argv) == 1
@@ -25,10 +28,9 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              multiplemode="yes",
               enemies=[5,6,7],
               player_controller=specialist(),
-              multiplemode="yes"
+              multiplemode="yes",
               speed="fastest",
               enemymode="static",
               level=2)
@@ -45,12 +47,18 @@ def run(config):
 
 def evaluate(genomes, config):
     best = 0
+    if not NEAT:
+        sub = Substrate(20, 5)
     for genome_id, genome in genomes:
         # Create either an RNN or a simple NN for each genome
         if NEAT:
-            rnn = neat.nn.RecurrentNetwork.create(genome, config)
+            nn = neat.nn.FeedForwardNetwork.create(genome, config)
+        else:
+            cppn = neat.nn.FeedForwardNetwork.create(genome, config)
+            network = ESNetwork(sub, cppn)
+            nn = network.create_phenotype_network()
         # Make each genome (individual) play the game
-        f,p,e,t = env.play(rnn)
+        f,p,e,t = env.play(nn)
         # Assign a fitness value to a specific genome
         genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
         best = genome.fitness if genome.fitness > best else best
@@ -68,14 +76,11 @@ def process_results(winner, stats):
 
     # Loop through mean lists to add values to file
     for i in  range(GENS):
-        file1.write(str(i) + ',')
-        file1.write(f'{mean[i]}, ')
-        file1.write(f'{best_genomes[i]}, ')
+        file.write(str(i) + ',')
+        file.write(f'{mean[i]}, ')
+        file.write(f'{best_genomes[i]}, ')
     
-    file1.write('\n')
-   
-    # Close file
-    file1.close()
+    file.write('\n')
 
 def main(params) -> None:
     # Run simulations to determine a solution
