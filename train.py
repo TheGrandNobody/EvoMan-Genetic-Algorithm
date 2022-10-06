@@ -1,6 +1,4 @@
 import sys, os
-
-from extra.substrate import Substrate
 sys.path.insert(0, 'evoman')
 from environment import Environment
 from controllers import specialist
@@ -8,6 +6,7 @@ import pickle
 import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
+from extra.substrate import Substrate
 from extra.es_hyperneat import ESNetwork
 from extra.hyperneat import create_phenotype_network
 
