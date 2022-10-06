@@ -16,5 +16,5 @@ python3 test.py
 ```
 and for ES-HyperNeat you can add any additional command line arguments, such as:
 ```
-python3 train.py esn
+python3 test.py esn
 ```
