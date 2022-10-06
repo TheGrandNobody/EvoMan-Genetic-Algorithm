@@ -14,7 +14,7 @@ params = {"initial_depth": 0,
             "iteration_level": 1,
             "division_threshold": 0.5,
             "max_weight": 5.0,
-            "activation": "relu"}
+            "activation": "sigmoid"}
 
 class ESNetwork:
     """
