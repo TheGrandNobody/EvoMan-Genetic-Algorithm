@@ -7,7 +7,6 @@ import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
 
-
 # Determines whether NEAT or the simple NN is being used
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
@@ -67,13 +66,13 @@ def process_results(winner, stats):
         # Clean up csv file with every run
         file.write('New Run,')
 
-        # Loop through mean lists to add values to file
-        for i in range(GENS):
-            file.write(str(i) + ',')
-            file.write(f'{mean[i]}, ')
-            file.write(f'{best_genomes[i]}, ')
-        
-        file.write('\n')
+    # Loop through mean lists to add values to file
+    for i in  range(GENS):
+        file.write(str(i) + ',')
+        file.write(f'{mean[i]}, ')
+        file.write(f'{best_genomes[i]}, ')
+    
+    file.write('\n')
 
 def main(params) -> None:
     # Run simulations to determine a solution
