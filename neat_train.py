@@ -60,7 +60,7 @@ def evaluate(genomes, config):
 def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "simple"), "a") as file:
+    with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "esneat"), "a") as file:
         # Get list of means
         mean = stats.get_fitness_mean()
     
