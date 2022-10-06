@@ -26,12 +26,15 @@ def boxplot(data_file):
     all_data = []
     all_groups = []
     # read csv file
-    with open('Boxplot.csv', newline='') as csvfile:
+    with open(data_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
+            row_list = []
             all_groups.append(row[0])
-            data = list(map(float, row[1:]))
-            all_data.append(data)
+            for i in range(2, len(row)-1, 2):
+                print(row[i])
+                row_list.append(float(row[i]))
+            all_data.append(row_list)
 
     # boxplot
     fig = plt.figure(figsize =(10, 7))
@@ -52,7 +55,6 @@ def boxplot(data_file):
     # save plot  
     plt.savefig("Boxplot")
     return 
-
   
 if __name__ == "__main__":
     # Gather paths

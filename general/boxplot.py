@@ -12,9 +12,12 @@ def boxplot(data_file):
     with open(data_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
+            row_list = []
             all_groups.append(row[0])
-            data = list(map(float, row[1:]))
-            all_data.append(data)
+            for i in range(2, len(row)-1, 2):
+                print(row[i])
+                row_list.append(float(row[i])) # change for test.csv 
+            all_data.append(row_list)
 
     # boxplot
     fig = plt.figure(figsize =(10, 7))
