@@ -29,7 +29,7 @@ statsfile.write("neat" if NEAT else "esneat" + ',')
 if __name__ == "__main__":
 
     for i in range(0,3):
-        statsfile.write(str(i) + ', ')
+        statsfile.write(str(i) + ',')
         # Initialize the NEAT config 
         config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
         with open('winners/test_generalist_7'+str(i)+'neat-winner.pkl', "rb") as f:
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         a = env.play(rnn)
         print(a)
         # Write fitness value to stats file
-        statsfile.write(str(a[2] - a[1]) + ", ")
+        statsfile.write(str(a[2] - a[1]) + ",")
     
 statsfile.write('\n')
 statsfile.close()

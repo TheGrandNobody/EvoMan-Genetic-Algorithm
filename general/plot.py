@@ -29,12 +29,11 @@ def boxplot(data_file):
     with open(data_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
-            row_list = []
-            all_groups.append(row[0])
-            for i in range(2, len(row)-1, 2):
-                print(row[i])
-                row_list.append(float(row[i]))
-            all_data.append(row_list)
+            all_groups.append(str(row[0]))
+            data_1box = []
+            for i in range(2, len(row)-2, 2):
+                data_1box.append(float(row[i]))
+            all_data.append(data_1box)
 
     # boxplot
     fig = plt.figure(figsize =(10, 7))
