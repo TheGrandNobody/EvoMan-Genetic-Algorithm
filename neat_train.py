@@ -7,7 +7,6 @@ import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
 
-
 # Determines whether NEAT or the simple NN is being used
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
@@ -60,20 +59,23 @@ def evaluate(genomes, config):
 def process_results(winner, stats):
     # Use NEAT's Population object to obtain the statistics you want
     # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "simple"), "a") as file:
+    with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "esneat"), "a") as file:
         # Get list of means
         mean = stats.get_fitness_mean()
     
         # Clean up csv file with every run
         file.write('New Run,')
 
-        # Loop through mean lists to add values to file
-        for i in range(GENS):
-            file.write(str(i) + ',')
-            file.write(f'{mean[i]}, ')
-            file.write(f'{best_genomes[i]}, ')
-        
-        file.write('\n')
+    # Loop through mean lists to add values to file
+    for i in  range(GENS):
+        file1.write(str(i) + ',')
+        file1.write(f'{mean[i]}, ')
+        file1.write(f'{best_genomes[i]}, ')
+    
+    file1.write('\n')
+   
+    # Close file
+    file1.close()
 
 def main(params) -> None:
     # Run simulations to determine a solution
