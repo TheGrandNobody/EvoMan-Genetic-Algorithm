@@ -11,9 +11,10 @@ import numpy as np
 import os
 
 
-num_all_enemies=2
+# num_all_enemies=2
+num_all_enemies=[7,8]
 test_five_times=2
-num_of_folders=3
+num_of_folders=2
 
 # choose this for not using visuals and thus making experiments faster
 headless = True
@@ -28,7 +29,7 @@ if not os.path.exists(experiment_name):
 
 # initializes simulation in multi evolution mode, for multiple static enemies.
 env = Environment(experiment_name=experiment_name,
-                  enemies=[1],
+                  enemies=[num_all_enemies[0]],
                   multiplemode="no",
                   playermode="ai",
                   player_controller=simple(n_hidden_neurons),
@@ -78,7 +79,7 @@ if __name__ == "__main__":
         player_life_mean_temp = {}
 
         experiment_name_for_save.append("train_" + str(f + 1))
-        for i in range(1, num_all_enemies + 1):
+        for i in num_all_enemies:
             temp = []
             temp_1 = []
             temp_2 = []

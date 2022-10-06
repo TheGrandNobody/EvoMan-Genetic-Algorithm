@@ -51,8 +51,8 @@ n_vars = (env.get_num_sensors()+1)*n_hidden_neurons + (n_hidden_neurons+1)*5
 
 dom_u = 1
 dom_l = -1
-npop = 25
-gens = 10
+npop = 10
+gens = 6
 offspring_rate = 0.25
 mutation_rate = 0.25
 last_best = 0
@@ -104,17 +104,30 @@ def survivor_selection(pop,fit_pop,offspring,fit_offspring):
     fitness_new_pop = (fitness_new_pop[sorted_index])[:npop]
     return new_pop,fitness_new_pop
 
-if __name__ == "__main__":
-    # # loads file with the best solution for testing
-    # if run_mode =='test':
-    #     bsol = np.loadtxt(experiment_name+'/best.txt')
-    #     print( '\n RUNNING SAVED BEST SOLUTION \n')
-    #     env.update_parameter('speed','normal')
-    #     evaluate([bsol])
-    #     sys.exit(0)
 
-    ITERATIONS = 10
+
+def process_results(mean, best_genomes):
+
+    with open(r"train/StatsFile_for_EA.csv", "a") as file:
+        # Get list of means
+
+        # Clean up csv file with every run
+        file.write('New Run,')
+
+        # Loop through mean lists to add values to file
+        for i in range(len(mean)):
+            file.write(str(i) + ',')
+            file.write(f'{mean[i]}, ')
+            file.write(f'{best_genomes[i]}, ')
+
+        file.write('\n')
+
+if __name__ == "__main__":
+
+    ITERATIONS = 2
     for i in range(ITERATIONS):
+        all_means = []
+        all_bests = []
         experiment_name = 'train/train_' + str(i + 1)
         if not os.path.exists(experiment_name):
             os.makedirs(experiment_name)
@@ -128,6 +141,8 @@ if __name__ == "__main__":
             fit_pop = evaluate(pop)
             best = np.argmax(fit_pop)
             mean = np.mean(fit_pop)
+            all_means.append(mean)
+            all_bests.append(fit_pop[best])
             std = np.std(fit_pop)
             ini_g = 0
             solutions = [pop, fit_pop]
@@ -194,6 +209,8 @@ if __name__ == "__main__":
             best = np.argmax(fit_pop)
             std  =  np.std(fit_pop)
             mean = np.mean(fit_pop)
+            all_means.append(mean)
+            all_bests.append(fit_pop[best])
 
 
             # saves results
@@ -215,6 +232,7 @@ if __name__ == "__main__":
             env.update_solutions(solutions)
             env.save_state()
 
+        process_results(all_means, all_bests)
 
         fim = time.time() # prints total execution time for experiment
         print( '\nExecution time: '+str(round((fim-ini)/60))+' minutes \n')
