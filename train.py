@@ -1,5 +1,6 @@
 import sys, os
 sys.path.insert(0, 'evoman')
+sys.path.insert(1, 'extra')
 from environment import Environment
 from controllers import specialist
 import pickle
