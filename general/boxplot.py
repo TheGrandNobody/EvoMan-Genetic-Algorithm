@@ -12,9 +12,9 @@ def boxplot(data_file):
     with open(data_file, newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
         for row in spamreader:
-            all_groups.append(str(row[0]))
+            all_groups.append(str(row[0] + row [1]))
             data_1box = []
-            for i in range(2, len(row)-2, 2):
+            for i in range(3, len(row)-1, 2):
                 data_1box.append(float(row[i]))
             all_data.append(data_1box)
 
@@ -26,7 +26,7 @@ def boxplot(data_file):
     # settings
     plt.title("2 EAs, 2 pairs of enemies")
     ax.set_xticklabels(all_groups)
-    colors = ['black', 'red', 'green', 'blue', 'cyan']
+    colors = ['gray', 'red', 'green', 'blue', 'cyan']
 
     for patch, color in zip(bp['boxes'], colors):
         patch.set_facecolor(color)
@@ -39,4 +39,4 @@ def boxplot(data_file):
     return 
 
 if __name__ == "__main__":
-    boxplot('Boxplot.csv')
+    boxplot('test.csv')
