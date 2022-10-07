@@ -7,28 +7,37 @@ import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
 from extra.substrate import Substrate
-from extra.es_hyperneat import ESNetwork
+#from extra.es_hyperneat import ESNetwork
 from extra.hyperneat import create_phenotype_network
 
-# Determines whether NEAT or the simple NN is being used
-NEAT = len(sys.argv) == 1
+# Determines whether NEAT or the simple NN is being used (Changed to 2 to allow for running multiple tests)
+# The second argv gives a reference for the enemy-list
+NEAT = len(sys.argv) == 2
 # Holds the best genomes for each generation
 best_genomes = []
-# Name of the enemy
-NAME = "CrashMan"
-TEST = "test_generalist_2"
+# Data set for enemy tests. First column is the test number, the second column is a list of enemies
+enemy_list =    [[4,[1,3,2]],
+                [5,[3,6,7]],
+                [6,[1,2,8]],
+                [7,[1,7,8]],
+                [9,[5,6,7]],
+                [11,[7,8]]]
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
 ITERATIONS = 3
 
+
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
+
+# Name of the enemy
+TEST = "test_generalist_"+str(enemy_list[int(sys.argv[1])][0])
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[5,6,7],
+              enemies=enemy_list[int(sys.argv[1])][1],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
@@ -53,34 +62,12 @@ def evaluate(genomes, config):
         # Create either an RNN or a simple NN for each genome
         if NEAT:
             nn = neat.nn.FeedForwardNetwork.create(genome, config)
-        else:
-            cppn = neat.nn.FeedForwardNetwork.create(genome, config)
-            network = ESNetwork(sub, cppn)
-            nn = network.create_phenotype_network()
         # Make each genome (individual) play the game
         f,p,e,t = env.play(nn)
         # Assign a fitness value to a specific genome
         genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
         best = genome.fitness if genome.fitness > best else best
     best_genomes.append(best)
-
-def process_results(winner, stats):
-    # Use NEAT's Population object to obtain the statistics you want
-    # Create or open a csv file called StatsFile.csv that can be written in from last position 
-    with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "esneat"), "a") as file:
-        # Get list of means
-        mean = stats.get_fitness_mean()
-    
-        # Clean up csv file with every run
-        file.write('New Run,')
-
-    # Loop through mean lists to add values to file
-    for i in  range(GENS):
-        file.write(str(i) + ',')
-        file.write(f'{mean[i]}, ')
-        file.write(f'{best_genomes[i]}, ')
-    
-    file.write('\n')
 
 def main(params) -> None:
     # Run simulations to determine a solution
