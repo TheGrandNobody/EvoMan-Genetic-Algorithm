@@ -1,13 +1,13 @@
 import sys
-
-from extra.substrate import Substrate
 sys.path.insert(0, 'evoman')
+sys.path.insert(1, 'extra')
 from environment import Environment
 from controllers import specialist
 import pickle
 import neat
 from extra.es_hyperneat import ESNetwork
 from extra.hyperneat import create_phenotype_network
+from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     for i in range(0,3):
         statsfile.write(str(i) + ', ')
         # Initialize the NEAT config 
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('esneat-specialist.cfg' if HYPERNEAT else 'neat-specialist.cfg'))
+        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-geneeralist.cfg' if NEAT else 'esneat-generalist.cfg'))
         with open('winners/test_generalist_7'+str(i)+'neat-winner.pkl', "rb") as f:
             unpickler = pickle.Unpickler(f)
             genome = unpickler.load()

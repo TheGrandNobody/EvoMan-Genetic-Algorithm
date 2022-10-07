@@ -1,5 +1,6 @@
 import sys, os
 sys.path.insert(0, 'evoman')
+sys.path.insert(1, 'extra')
 from environment import Environment
 from controllers import specialist
 import pickle
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     if not os.path.exists('logs'):
         os.makedirs('logs')
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-specialist.cfg')
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-generalist.cfg')
     with ProcessPoolExecutor() as executor:
         executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
