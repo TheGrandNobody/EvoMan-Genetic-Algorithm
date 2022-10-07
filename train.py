@@ -15,8 +15,6 @@ from extra.hyperneat import create_phenotype_network
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
-# Name of the enemy
-NAME = "CrashMan"
 TEST = "test_generalist_2"
 # Number of generations to run the simulation
 GENS = 5
