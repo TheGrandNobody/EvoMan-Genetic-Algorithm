@@ -21,7 +21,7 @@ enemy_list =    [[4,[1,3,2]],
                 [6,[1,2,8]],
                 [7,[1,7,8]],
                 [9,[5,6,7]],
-                [11,[7,8]]]
+                [11,[7,8]],]
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
