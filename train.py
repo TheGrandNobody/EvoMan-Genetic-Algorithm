@@ -15,11 +15,9 @@ from extra.hyperneat import create_phenotype_network
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
-# Name of the enemy
-NAME = "CrashMan"
 TEST = "test_generalist_9"
 # Number of generations to run the simulation
-GENS = 10
+GENS = 1
 # Number of iterations to run each simulation
 ITERATIONS = 1
 
@@ -86,6 +84,7 @@ def process_results(winner, stats):
 def main(params) -> None:
     # Run simulations to determine a solution
     winner, stats = run(params[0])
+    print(winner)
     # Process results
     # process_results(winner, stats)
     with open("winners/%s%d%s%s" % (TEST, params[1], 'neat', '-winner.pkl'), "wb") as f:
