@@ -19,9 +19,9 @@ best_genomes = []
 NAME = "CrashMan"
 TEST = "test_generalist_2"
 # Number of generations to run the simulation
-GENS = 1
+GENS = 5
 # Number of iterations to run each simulation
-ITERATIONS = 3
+ITERATIONS = 1
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     if not os.path.exists('logs'):
         os.makedirs('logs')
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-generalist.cfg')
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-specialist.cfg'))
     with ProcessPoolExecutor() as executor:
         executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
