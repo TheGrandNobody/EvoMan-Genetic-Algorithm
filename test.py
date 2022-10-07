@@ -24,15 +24,15 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write("neat" if NEAT else "esneat" + ',')
+statsfile.write("test_17,"+ "neat," if NEAT else "esneat,")
 
 if __name__ == "__main__":
 
     for i in range(0,3):
         statsfile.write(str(i) + ',')
         # Initialize the NEAT config 
-        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-geneeralist.cfg' if NEAT else 'esneat-generalist.cfg'))
-        with open('winners/test_generalist_7'+str(i)+'neat-winner.pkl', "rb") as f:
+        config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-generalist.cfg'))
+        with open('winners/test_generalist_17'+str(i)+'neat-winner.pkl', "rb") as f:
             unpickler = pickle.Unpickler(f)
             genome = unpickler.load()
         # Create either an Feedforward Network or a CPPN
