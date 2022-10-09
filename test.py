@@ -11,6 +11,8 @@ from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
+
+# Give list of enemies it was trained on (with spacec inbetween, no comma's)
 ENEMIES_GENERAL = "1 2 3 4 5 6 7 8"
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
