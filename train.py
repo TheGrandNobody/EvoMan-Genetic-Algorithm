@@ -16,12 +16,11 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of the enemy
-NAME = "CrashMan"
-TEST = "test_generalist_2"
+NAME = "2,4,"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
-ITERATIONS = 3
+ITERATIONS = 2
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -29,7 +28,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[5,6,7],
+              enemies=[2,4],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
@@ -75,20 +74,20 @@ def process_results(winner, stats):
         # Clean up csv file with every run
         file.write('New Run,')
 
-    # Loop through mean lists to add values to file
-    for i in  range(GENS):
-        file.write(str(i) + ',')
-        file.write(f'{mean[i]}, ')
-        file.write(f'{best_genomes[i]}, ')
+        # Loop through mean lists to add values to file
+        for i in  range(GENS):
+            file.write(str(i) + ',')
+            file.write(f'{mean[i]}, ')
+            file.write(f'{best_genomes[i]}, ')
     
-    file.write('\n')
+        file.write('\n')
 
 def main(params) -> None:
     # Run simulations to determine a solution
     winner, stats = run(params[0])
     # Process results
-    # process_results(winner, stats)
-    with open("winners/%s%d%s%s" % (TEST, params[1], 'neat', '-winner.pkl'), "wb") as f:
+    process_results(winner, stats)
+    with open("winners/%s%d%s%s" % (NAME, params[1], 'neat', '-winner.pkl'), "wb") as f:
         pickle.dump(winner, f)
 
 if __name__ == "__main__":
