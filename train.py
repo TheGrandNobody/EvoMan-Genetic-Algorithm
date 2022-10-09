@@ -15,8 +15,8 @@ from extra.hyperneat import create_phenotype_network
 NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
-# Name of the enemy
-NAME = "2,4,"
+# Name of generalist - change to generalist your training
+NAME = "generalist_1"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     if not os.path.exists('logs'):
         os.makedirs('logs')
     # Initialize the NEAT config 
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' +  'neat-generalist.cfg')
+    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-generalist.cfg'))
     with ProcessPoolExecutor() as executor:
         executor.map(main, [(config, i) for i in range(ITERATIONS)])
 
