@@ -20,7 +20,7 @@ NAME = "2,4,"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
-ITERATIONS = 2
+ITERATIONS = 10
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
