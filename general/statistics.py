@@ -56,7 +56,7 @@ def test(EA1, EA2, all_data):
     """
     # add shapiro wilks test 
     shapiro1 = shapiro(all_data[EA1])
-    shapiro2 = (all_data[EA2])
+    shapiro2 = shapiro(all_data[EA2])
 
     # perform Man Withney
     results = mannwhitneyu(all_data[EA1], all_data[EA2])
