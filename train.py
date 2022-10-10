@@ -15,7 +15,7 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of generalist - change to generalist your training
-NAME = "7,8,"
+NAME = "7 8"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
@@ -27,7 +27,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[2,5,7,8],
+              enemies=[1,2,3,4,5,6,7,8],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
@@ -86,7 +86,7 @@ def main(params) -> None:
     winner, stats = run(params[0])
     # Process results
     process_results(winner, stats)
-    with open("winners/%s%d%s%s" % (NAME, params[1], 'neat', '-winner.pkl'), "wb") as f:
+    with open("winners/%s%d%s%s" % (NAME, params[1], 'neat' if NEAT else "esneat", '-winner.pkl'), "wb") as f:
         pickle.dump(winner, f)
 
 if __name__ == "__main__":

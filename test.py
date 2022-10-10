@@ -11,7 +11,7 @@ from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
-NAME = '7,8,'
+NAME = '7 8'
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
@@ -25,7 +25,7 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write("test_"+ NAME+ "neat," if NEAT else "esneat,")
+statsfile.write(NAME + "neat," if NEAT else "esneat,")
 
 if __name__ == "__main__":
 
