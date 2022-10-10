@@ -9,11 +9,11 @@ from extra.es_hyperneat import ESNetwork
 from extra.hyperneat import create_phenotype_network
 from extra.substrate import Substrate
 
-# Whether we are training using HyperNeat or not
-NEAT = len(sys.argv) == 1
+# Whether we are training using HyperNeat or not and which generalist
+NEAT = len(sys.argv) == 1 
 NAME = '2,4'
 
-# write without comma's!
+# remove commas for csv file
 ENEMIES_GENERAL = NAME.replace(",", " ")
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
