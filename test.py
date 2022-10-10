@@ -11,7 +11,7 @@ from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not and which generalist
 NEAT = len(sys.argv) == 1 
-NAME = '2,4'
+NAME = '1,5,6'
 
 # remove commas for csv file
 ENEMIES_GENERAL = NAME.replace(",", " ")

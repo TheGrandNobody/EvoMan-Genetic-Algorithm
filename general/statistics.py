@@ -66,7 +66,6 @@ def test(EA1, EA2, all_data):
     statsfile.write(EA1 + "," + EA2 + "," + str(results) + str(shapiro1) + str(shapiro2) + '\n')
     return
 
-
 if __name__ == "__main__":
     # read data 
     data = read_csv(TEST_CSV)
