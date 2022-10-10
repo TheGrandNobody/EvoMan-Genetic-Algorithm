@@ -12,7 +12,9 @@ from extra.substrate import Substrate
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
 NAME = '2,6,'
-ENEMIES_GENERAL = "1 2 3 4 5 6 7 8"
+
+# write without comma's!
+ENEMIES_GENERAL = "2 6"
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
@@ -26,7 +28,7 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write("test_"+ NAME+ "neat," if NEAT else "esneat,")
+statsfile.write(("neat," if NEAT else "esneat,") + ENEMIES_GENERAL + ",")
 
 if __name__ == "__main__":
 
