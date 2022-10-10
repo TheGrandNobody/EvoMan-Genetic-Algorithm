@@ -15,7 +15,7 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of generalist - change to generalist your training
-NAME = "7,8,"
+NAME = "7 8"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation

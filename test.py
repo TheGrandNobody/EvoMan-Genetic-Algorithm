@@ -11,16 +11,16 @@ from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
-NAME = '2,6,'
+NAME = '2,4'
 
 # write without comma's!
-ENEMIES_GENERAL = "2 6"
+ENEMIES_GENERAL = NAME.replace(",", " ")
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
               multiplemode="yes",
-              enemies=[7,8],
+              enemies=[2,4],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -32,11 +32,11 @@ statsfile.write(("neat," if NEAT else "esneat,") + ENEMIES_GENERAL + ",")
 
 if __name__ == "__main__":
 
-    for i in range(0,1):
+    for i in range(0,2):
         statsfile.write(str(i) + ',')
         # Initialize the NEAT config 
         config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-generalist.cfg'))
-        with open('winners/'+NAME+str(i)+'neat-winner.pkl', "rb") as f:
+        with open('winners/'+NAME + "," +str(i)+'neat-winner.pkl', "rb") as f:
             unpickler = pickle.Unpickler(f)
             genome = unpickler.load()
         # Create either an Feedforward Network or a CPPN
