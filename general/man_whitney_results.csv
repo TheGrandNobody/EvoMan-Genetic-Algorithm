@@ -1,1 +1,2 @@
-neat1 2,hyperneat1 2,MannwhitneyuResult(statistic=4.5, pvalue=1.0)ShapiroResult(statistic=0.8134583234786987, pvalue=0.1470491588115692)[25.074953044519326, 10.05786630726784, 8.657742449279578]
+neat2 4,esneat2 4,MannwhitneyuResult(statistic=4.5, pvalue=1.0)ShapiroResult(statistic=1.0, pvalue=1.0)[-100.0, -100.0, -100.0]
+neat1 5 6,esneat1 5 6,MannwhitneyuResult(statistic=4.5, pvalue=1.0)ShapiroResult(statistic=1.0, pvalue=1.0)[-100.0, -100.0, -100.0]

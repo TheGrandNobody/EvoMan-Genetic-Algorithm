@@ -6,6 +6,10 @@ import csv
 import matplotlib.pyplot as plt
 from scipy.stats import mannwhitneyu, shapiro
 
+TEST_CSV = "../test.csv"
+GEN1 = "2 4"
+GEN2 = "1 5 6"
+
 def read_csv(data_file):
     """
     Returns names of groups (independent variables) and datapoints for each group (dependent variable)
@@ -52,7 +56,7 @@ def test(EA1, EA2, all_data):
     """
     # add shapiro wilks test 
     shapiro1 = shapiro(all_data[EA1])
-    shapiro2 = (all_data[EA2])
+    shapiro2 = shapiro(all_data[EA2])
 
     # perform Man Withney
     results = mannwhitneyu(all_data[EA1], all_data[EA2])
@@ -65,11 +69,12 @@ def test(EA1, EA2, all_data):
 
 if __name__ == "__main__":
     # read data 
-    data = read_csv('test.csv')
+    data = read_csv(TEST_CSV)
 
     # make boxplot
     boxplot(data)
+    print(data)
 
     # compare EAs in both generalists
-    generalist1 = test( "neat1 2", "hyperneat1 2", data)
-    # generalist2 = test("neat1 2", "hyperneat1 2", data)
+    generalist1 = test(("neat" + GEN1), ("esneat" + GEN1), data)
+    generalist2 = test(("neat" + GEN2), ("esneat" + GEN2), data)

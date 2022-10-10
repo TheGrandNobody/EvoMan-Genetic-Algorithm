@@ -17,7 +17,7 @@ NAME = '7 8'
 env = Environment(experiment_name='logs',
               playermode="ai",
               multiplemode="yes",
-              enemies=[7,8],
+              enemies=[2,4],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -25,15 +25,15 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write(NAME + "neat," if NEAT else "esneat,")
+statsfile.write(("neat," if NEAT else "esneat,") + ENEMIES_GENERAL + ",")
 
 if __name__ == "__main__":
 
-    for i in range(0,1):
+    for i in range(0,2):
         statsfile.write(str(i) + ',')
         # Initialize the NEAT config 
         config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-generalist.cfg'))
-        with open('winners/'+NAME+str(i)+'neat-winner.pkl', "rb") as f:
+        with open('winners/'+NAME + "," +str(i)+'neat-winner.pkl', "rb") as f:
             unpickler = pickle.Unpickler(f)
             genome = unpickler.load()
         # Create either an Feedforward Network or a CPPN
