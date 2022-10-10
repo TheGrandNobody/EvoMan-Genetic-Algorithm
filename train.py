@@ -4,7 +4,6 @@ sys.path.insert(1, 'extra')
 from environment import Environment
 from controllers import specialist
 import pickle
-import numpy as np
 import neat
 from concurrent.futures import ProcessPoolExecutor
 from extra.substrate import Substrate
@@ -16,7 +15,7 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of generalist - change to generalist your training
-NAME = "2,6,"
+NAME = "7,8,"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
@@ -28,7 +27,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[2,6],
+              enemies=[2,5,7,8],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
@@ -60,7 +59,7 @@ def evaluate(genomes, config):
         # Make each genome (individual) play the game
         f,p,e,t = env.play(nn)
         # Assign a fitness value to a specific genome
-        genome.fitness = 0.90*(100 - e) + 0.1*p - np.log(t)
+        genome.fitness = f
         best = genome.fitness if genome.fitness > best else best
     best_genomes.append(best)
 
