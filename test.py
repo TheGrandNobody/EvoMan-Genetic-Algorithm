@@ -11,14 +11,13 @@ from extra.substrate import Substrate
 
 # Whether we are training using HyperNeat or not
 NEAT = len(sys.argv) == 1
-NAME = '2,6,'
-ENEMIES_GENERAL = "1 2 3 4 5 6 7 8"
+NAME = '7,8,'
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
               multiplemode="yes",
-              enemies=[1,2,3,4,5,6,7,8],
+              enemies=[7,8],
               player_controller=specialist(),
               speed="fastest",
               enemymode="static",
@@ -30,7 +29,7 @@ statsfile.write("test_"+ NAME+ "neat," if NEAT else "esneat,")
 
 if __name__ == "__main__":
 
-    for i in range(0,10):
+    for i in range(0,1):
         statsfile.write(str(i) + ',')
         # Initialize the NEAT config 
         config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, 'configs/' + ('neat-generalist.cfg' if NEAT else 'esneat-generalist.cfg'))
