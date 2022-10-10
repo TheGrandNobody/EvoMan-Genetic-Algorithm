@@ -9,12 +9,9 @@ from extra.es_hyperneat import ESNetwork
 from extra.hyperneat import create_phenotype_network
 from extra.substrate import Substrate
 
-# Whether we are training using HyperNeat or not and which generalist
-NEAT = len(sys.argv) == 1 
-NAME = '1,5,6'
-
-# remove commas for csv file
-ENEMIES_GENERAL = NAME.replace(",", " ")
+# Whether we are training using HyperNeat or not
+NEAT = len(sys.argv) == 1
+NAME = '7 8'
 
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
@@ -28,7 +25,7 @@ env = Environment(experiment_name='logs',
 
 # Open boxplot stats file 
 statsfile = open(r"test.csv", "a")
-statsfile.write(("neat," if NEAT else "esneat,") + ENEMIES_GENERAL + ",")
+statsfile.write(("neat," if NEAT else "esneat,") + NAME + ",")
 
 if __name__ == "__main__":
 
