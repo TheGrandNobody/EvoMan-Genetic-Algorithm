@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from scipy.stats import mannwhitneyu, shapiro
 
 TEST_CSV = "../test.csv"
-GEN1 = "2 4"
-GEN2 = "1 5 6"
+GEN1 = "7 8"
+GEN2 = "2 4"
 
 def read_csv(data_file):
     """

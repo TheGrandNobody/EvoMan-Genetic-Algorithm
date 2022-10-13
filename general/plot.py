@@ -9,10 +9,10 @@ def line_plot(all_max_gens, all_mean_gens, max_std_lower, mean_std_lower, max_st
     for n in range(2):
         plt.xlabel("Generations")
         plt.ylabel("Fitness")
-        plt.set_title(sys.argv[n+1] + " line plot of best and mean performance",size=10)
+        plt.title(sys.argv[n+1] + " line plot of best and mean performance",size=10)
         plt.legend(loc="best",prop={'size': 5})
-        plt.set_xlim(0, 14)
-        plt.set_ylim(-10, 100)
+        plt.xlim(0, 14)
+        plt.ylim(-10, 100)
         for i in range(2):
             plt.plot(all_max_gens[i+n], color=None, alpha=1.0,label="Best "+names[i+n])
             plt.plot(all_mean_gens[i+n], color=None, alpha=1.0,label="Mean "+names[i+n])

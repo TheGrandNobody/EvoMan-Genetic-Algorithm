@@ -15,11 +15,11 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of generalist - change to generalist your training
-NAME = "7 8"
+NAME = "2 4"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
-ITERATIONS = 1
+ITERATIONS = 10
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -27,7 +27,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[1,2,3,4,5,6,7,8],
+              enemies=[2,4],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
