@@ -15,11 +15,11 @@ NEAT = len(sys.argv) == 1
 # Holds the best genomes for each generation
 best_genomes = []
 # Name of generalist - change to generalist your training
-NAME = "7 8"
+NAME = "2 5 7 8"
 # Number of generations to run the simulation
 GENS = 10
 # Number of iterations to run each simulation
-ITERATIONS = 1
+ITERATIONS = 10
 
 # Make the module headless to run the simulation faster
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -27,7 +27,7 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 # Initialize an environment for a specialist game (single objective) with a static enemy and an ai-controlled player
 env = Environment(experiment_name='logs',
               playermode="ai",
-              enemies=[1,2,3,4,5,6,7,8],
+              enemies=[2, 5, 7, 8],
               player_controller=specialist(),
               multiplemode="yes",
               speed="fastest",
@@ -49,7 +49,7 @@ def evaluate(genomes, config):
     if not NEAT:
         sub = Substrate(20, 5)
     for genome_id, genome in genomes:
-        # Create either an RNN or a simple NN for each genome
+        # Create a 10 Hidden Neuron multilayer for each genome
         if NEAT:
             nn = neat.nn.FeedForwardNetwork.create(genome, config)
         else:
@@ -69,7 +69,6 @@ def process_results(winner, stats):
     with open(r"stats/%s%sStatsFile.csv" % (f"[{env.enemies}]","neat" if NEAT else "esneat"), "a") as file:
         # Get list of means
         mean = stats.get_fitness_mean()
-    
         # Clean up csv file with every run
         file.write('New Run,')
 
@@ -78,7 +77,6 @@ def process_results(winner, stats):
             file.write(str(i) + ',')
             file.write(f'{mean[i]}, ')
             file.write(f'{best_genomes[i]}, ')
-    
         file.write('\n')
 
 def main(params) -> None:
