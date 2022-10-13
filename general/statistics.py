@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from scipy.stats import mannwhitneyu, shapiro
 
 TEST_CSV = "../test.csv"
-GEN1 = "2 4"
-GEN2 = "1 5 6"
+GEN1 = "7 8"
+GEN2 = "2 4"
 
 def read_csv(data_file):
     """
@@ -65,7 +65,6 @@ def test(EA1, EA2, all_data):
     statsfile = open(r"man_whitney_results.csv", "a")
     statsfile.write(EA1 + "," + EA2 + "," + str(results) + str(shapiro1) + str(shapiro2) + '\n')
     return
-
 
 if __name__ == "__main__":
     # read data 
